@@ -1,0 +1,23 @@
+class Solution {
+    private int remain = 0,target;
+    private ListNode frontNode;
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        if (head == null || n == 0) return head;
+        target= n;
+        helper(dummy);
+        return dummy.next;
+        
+    }
+    
+    public void helper(ListNode currNode){
+        if (currNode == null) return;
+        helper(currNode.next);
+        remain++;
+        if (remain == target + 1){
+            currNode.next = currNode.next.next;
+        }
+        return;
+    }
+}
