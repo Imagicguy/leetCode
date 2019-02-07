@@ -1,0 +1,39 @@
+
+class Solution {
+//greedy time comp:O(n)
+    public int leastInterval(char[] tasks, int n) {
+        if(tasks.length == 0)return 0;
+        int[] c = new int[26];
+        for(char t : tasks){
+            c[t - 'A']++;
+        }
+        Arrays.sort(c);
+        System.out.println(c[25]);
+        int i = 25;
+        while(i >= 0 && c[i] == c[25]) i--;//calculate how many same biggest elements we have
+
+        return Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
+    }
+}
+
+//corner case : 1.uppercase ? 
+//              2. tasks.length
+
+//follow up : if input is String[] task and you can not change the order of tasks string
+
+public int tasksOrder(String tasks,int n){
+    if (tasks == null || tasks.length() == 0)return 0;
+    if (n == 0)return tasks.length();
+    Map<String,Integer> map = new HashMap<String,Integer>();
+    for (String str:tasks){
+        if (map.containsKey(str)){
+            int lastTime = map.get(str);
+            int newTime = Math.max(lastTime + n + 1,time + 1);
+            map.put(str,newTime);
+        }else{
+            time += 1;
+            map.put(str,time);
+        }
+    }
+    return time;
+}
