@@ -1,0 +1,15 @@
+  public int[] productExceptSelf(int[] nums) {
+        int[] results = new int[nums.length];
+        if(nums == null || nums.length == 0)return results;
+        
+        for (int i = 0, Product = 1;i < nums.length;i++){
+           results[i] = Product ;
+          Product *= nums[i];
+        }
+         
+        for (int i = nums.length - 1,Product = 1;i >= 0;i--){
+          results[i] *= Product;
+          Product *= nums[i];
+        }
+        return results;
+    }
