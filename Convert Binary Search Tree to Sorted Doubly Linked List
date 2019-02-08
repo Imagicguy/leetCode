@@ -1,0 +1,66 @@
+class Solution {
+    private Node CurrTail = null;     
+  public Node treeToDoublyList(Node root) {
+    Node dummy = new Node(0,null,null);
+    CurrTail = dummy;
+    if (root == null)return null;
+    traverse(root);
+    CurrTail.right = dummy.right;
+    dummy.right.left = CurrTail;
+    return dummy.right;
+    
+    //link head to tail  
+  }
+  private void traverse(Node currNode){
+    if (currNode == null)return;
+    traverse(currNode.left);
+    CurrTail.right = currNode;
+    currNode.left = CurrTail;
+    CurrTail = currNode;
+    traverse(currNode.right);
+  }
+}
+
+
+class Solution {
+    
+  public Node DLLtoBST(Node root) {
+    
+    if (root == null)return null;
+    DFS(root);
+    
+    //link head to tail  
+  }
+  private Node DFS(Node CurrInd){
+    if (CurrInd == null)return null;
+    Node middle = getMiddle(CurrInd);
+    if (middle.left != null){
+      middle.left.right = null;//cut it here
+      middle.left = DFS(CurrInd);
+    }else{
+      middle.left = null;
+    }
+    
+    if (middle.right != null){
+      middle.right.left.right = null;
+      middle.right = DFS(CurrInd.right);
+    }else{
+      middle.right = null;
+    }
+    return middle;
+    
+  }
+  private Node getMiddle(Node start){
+    Node slow = start;
+    Node fast = start;
+    while (slow.right != null && fast.right.right != null){
+      slow = slow.right;
+      fast = fast.right.right;
+    }
+    if (fast.right != null){// in case length is even
+      slow = slow.right;
+    }
+    return slow;
+  }
+  
+}
